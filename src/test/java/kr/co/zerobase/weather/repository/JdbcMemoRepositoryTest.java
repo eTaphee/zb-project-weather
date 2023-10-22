@@ -1,4 +1,4 @@
-package kr.co.zerobase.weather;
+package kr.co.zerobase.weather.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
