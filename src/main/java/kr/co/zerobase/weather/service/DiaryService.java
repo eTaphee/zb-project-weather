@@ -7,9 +7,9 @@ import static kr.co.zerobase.weather.type.ErrorCode.INVALID_DATE;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import kr.co.zerobase.weather.WeatherApplication;
 import kr.co.zerobase.weather.domain.DateWeather;
 import kr.co.zerobase.weather.domain.Diary;
 import kr.co.zerobase.weather.dto.DiaryDto;
@@ -19,8 +19,6 @@ import kr.co.zerobase.weather.repository.DateWeatherRepository;
 import kr.co.zerobase.weather.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -42,8 +40,6 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
 
     private final DateWeatherRepository dateWeatherRepository;
-
-    private static final Logger logger = LoggerFactory.getLogger(WeatherApplication.class);
 
     @Transactional
     public void createDiary(LocalDate date, String text) {
@@ -122,7 +118,8 @@ public class DiaryService {
             return Optional.empty();
         }
 
-        return Optional.of(dateWeatherRepository.save(DateWeather.from(response.getBody())));
+        return Optional.of(dateWeatherRepository.save(DateWeather.from(
+            Objects.requireNonNull(response.getBody()))));
     }
 
     private static void validateDate(LocalDate date) {
