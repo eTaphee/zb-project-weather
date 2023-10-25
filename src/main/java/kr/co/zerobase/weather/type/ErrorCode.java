@@ -14,7 +14,8 @@ public enum ErrorCode {
     COULD_NOT_GET_WEATHER_DATA(HttpStatus.INTERNAL_SERVER_ERROR.value()),
     INVALID_REQUEST(BAD_REQUEST.value()),
     DIARY_NOT_FOUND(NOT_FOUND.value()),
-    INVALID_DATE(BAD_REQUEST.value());
+    INVALID_DATE(BAD_REQUEST.value()),
+    INVALID_DATE_END_DATE_IS_BEFORE_START_DATE(BAD_REQUEST.value());
 
     private final int status;
 }

@@ -2,9 +2,11 @@ package kr.co.zerobase.weather.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public final class WeatherResponseDto {
 
     private String weather;

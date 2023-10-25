@@ -3,6 +3,7 @@ package kr.co.zerobase.weather.service;
 import static kr.co.zerobase.weather.type.ErrorCode.COULD_NOT_GET_WEATHER_DATA;
 import static kr.co.zerobase.weather.type.ErrorCode.DIARY_NOT_FOUND;
 import static kr.co.zerobase.weather.type.ErrorCode.INVALID_DATE;
+import static kr.co.zerobase.weather.type.ErrorCode.INVALID_DATE_END_DATE_IS_BEFORE_START_DATE;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -118,8 +119,9 @@ public class DiaryService {
             return Optional.empty();
         }
 
-        return Optional.of(dateWeatherRepository.save(DateWeather.from(
-            Objects.requireNonNull(response.getBody()))));
+        return Optional.of(
+            dateWeatherRepository.save(
+                DateWeather.from(Objects.requireNonNull(response.getBody()))));
     }
 
     private static void validateDate(LocalDate date) {
@@ -134,7 +136,7 @@ public class DiaryService {
         validateDate(endDate);
 
         if (startDate.isAfter(endDate)) {
-            throw new WeatherException(INVALID_DATE);
+            throw new WeatherException(INVALID_DATE_END_DATE_IS_BEFORE_START_DATE);
         }
     }
 }
